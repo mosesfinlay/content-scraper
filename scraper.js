@@ -25,6 +25,14 @@ const fs = require("fs");
 
 // Displays an error message
 function errorMessage(error) {
+
+  // Adds the error to the scraper-error.log file
+  fs.appendFile("scraper-error.log", `[${date}] ${error}\n`, (error) => {
+    if (error) {
+      throw error;
+    }
+  });
+
   console.error(`An error has occurred. Please try again. (${error.code})`);
 }
 

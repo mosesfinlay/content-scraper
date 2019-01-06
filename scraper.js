@@ -25,7 +25,7 @@ const fs = require("fs");
 
 // Displays an error message
 function errorMessage(error) {
-  console.error(`An error has occurred. Please try again. (${error.message})`);
+  console.error(`An error has occurred. Please try again. (${error.code})`);
 }
 
 // Makes a "data" directory if one does not already exist
@@ -59,6 +59,7 @@ function getShirtLinks(error, response, done) {
 // Scrapes information like the title, price, image_url etc.
 const getShirtInfoCrawler = new Crawler({
   maxConnections: 10,
+  retries: 0,
   callback: (error, response, done) => {
     // Handles any errors
     if (error) {
@@ -80,7 +81,7 @@ const getShirtInfoCrawler = new Crawler({
       // When the shirtInfo array has all of the shirt information
       if (shirtData.length === shirtLinks.length) {
 
-        // Write the CSV file
+        // Writes the CSV file
         csvWriter.writeRecords(shirtData)
           .then(() => console.log("Finished"))
           .catch(error => errorMessage);
@@ -93,6 +94,7 @@ const getShirtInfoCrawler = new Crawler({
 // Goes to the website and gets the links to each shirt
 const getShirtLinksCrawler = new Crawler({
   maxConnections: 10,
+  retries: 0,
   callback: (error, response, done) => getShirtLinks(error, response, done),
 });
 

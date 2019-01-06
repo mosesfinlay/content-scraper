@@ -19,12 +19,22 @@ const csvWriter = createCsvWriter({
 });
 let shirtData = [];
 
-// Requires the crawler module
+
 const Crawler = require("crawler");
+const fs = require("fs");
 
 // Displays an error message
 function errorMessage(error) {
   console.error(`An error has occurred. Please try again. (${error.message})`);
+}
+
+// Makes a "data" directory if one does not already exist
+if (!fs.existsSync("../data")) {
+  fs.mkdir("../data", { recursive: true }, (error) => {
+    if (error) {
+      errorMessage(error);
+    }
+  });
 }
 
 // Scrapes the website for the links to each shirt

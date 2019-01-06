@@ -17,7 +17,7 @@ const csvWriter = createCsvWriter({
     { id: "time", title: "Time" },
   ]
 });
-let shirtInfo = [];
+let shirtData = [];
 
 // Requires the crawler module
 const Crawler = require("crawler");

@@ -1,3 +1,7 @@
+const Crawler = require("crawler");
+const createCsvWriter = require("csv-writer").createObjectCsvWriter;
+const fs = require("fs");
+
 const date = new Date();
 
 // Creates a nicely formatted date
@@ -5,10 +9,9 @@ const fancyDate = `${date.getFullYear()}-${date.getDate()}-${date.getMonth()+1}`
 
 let shirtLinks = [];
 
-// CSV creator module variables
-const createCsvWriter = require("csv-writer").createObjectCsvWriter;
+// CSV creator module
 const csvWriter = createCsvWriter({
-  path: `../data/${fancyDate}.csv`,
+  path: `data/${fancyDate}.csv`,
   header: [
     { id: "title", title: "Title" },
     { id: "price", title: "Price" },
@@ -18,10 +21,6 @@ const csvWriter = createCsvWriter({
   ]
 });
 let shirtData = [];
-
-
-const Crawler = require("crawler");
-const fs = require("fs");
 
 // Displays an error message
 function errorMessage(error) {
@@ -37,8 +36,8 @@ function errorMessage(error) {
 }
 
 // Makes a "data" directory if one does not already exist
-if (!fs.existsSync("../data")) {
-  fs.mkdir("../data", { recursive: true }, (error) => {
+if (!fs.existsSync("data")) {
+  fs.mkdir("data", { recursive: true }, (error) => {
     if (error) {
       errorMessage(error);
     }

@@ -28,10 +28,10 @@ const csvWriter = createCsvWriter({
   path: `data/${fancyDate()}.csv`,
   header: [
     { id: "title", title: "Title" },
-    { id: "price", title: "Price" },
-    { id: "image_url", title: "ImageURL" },
-    { id: "url", title: "URL" },
-    { id: "time", title: "Time" },
+    { id: "price", title: " Price" },
+    { id: "image_url", title: " ImageURL" },
+    { id: "url", title: " URL" },
+    { id: "time", title: " Time" },
   ]
 });
 let shirtData = [];
@@ -93,10 +93,10 @@ const getShirtInfoCrawler = new Crawler({
       // Adds the shirt info to the CSV writer
       shirtData.push({
         title: $("head title").text(),
-        price: $("div.shirt-details h1 span").text(),
-        image_url: `http://shirts4mike.com/${imageURL}`,
-        url: shirtLinks[imageURL.substring(19, 20)-1],
-        time: `${fancyDate()}`,
+        price: ` ${$("div.shirt-details h1 span").text()}`,
+        image_url: ` http://shirts4mike.com/${imageURL}`,
+        url: ` ${shirtLinks[imageURL.substring(19, 20)-1]}`,
+        time: ` ${fancyDate()}`,
       });
 
       // When the shirtInfo array has all of the shirt information

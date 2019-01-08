@@ -5,13 +5,27 @@ const fs = require("fs");
 const date = new Date();
 
 // Creates a nicely formatted date
-const fancyDate = `${date.getFullYear()}-${date.getDate()}-${date.getMonth()+1}`;
+const fancyDate = () => {
+  const year = date.getFullYear();
+  let month = date.getMonth()+1;
+  let day = date.getDate();
+
+  if (month.toString().length == 1) {
+    month = `0${month}`;
+  }
+
+  if (day.toString().length == 1) {
+    day = `0${day}`;
+  }
+
+  return `${year}-${day}-${month}`;
+}
 
 let shirtLinks = [];
 
 // CSV creator module
 const csvWriter = createCsvWriter({
-  path: `data/${fancyDate}.csv`,
+  path: `data/${fancyDate()}.csv`,
   header: [
     { id: "title", title: "Title" },
     { id: "price", title: "Price" },
@@ -82,7 +96,7 @@ const getShirtInfoCrawler = new Crawler({
         price: $("div.shirt-details h1 span").text(),
         image_url: `http://shirts4mike.com/${imageURL}`,
         url: shirtLinks[imageURL.substring(19, 20)-1],
-        time: `${fancyDate}`,
+        time: `${fancyDate()}`,
       });
 
       // When the shirtInfo array has all of the shirt information
